@@ -1,0 +1,1 @@
+Participants can submit via Issues, or add a personal markdown file here (PRs welcome). 

@@ -1,0 +1,24 @@
+name: Day Submission
+description: Submit your artifact
+title: "[Day X] Submission - your-name"
+body:
+  - type: input
+    id: day
+    attributes: { label: Day #, placeholder: "e.g., 02" }
+  - type: textarea
+    id: links
+    attributes:
+      label: Links / Files
+      description: Add URLs or drag files into this issue.
+  - type: checkboxes
+    id: accept
+    attributes:
+      label: Acceptance Check
+      options:
+        - label: Criteria met
+  - type: textarea
+    id: notes
+    attributes: { label: Notes, description: What worked / blockers }
+  - type: textarea
+    id: safety
+    attributes: { label: Safety, description: License + disclosure text } 

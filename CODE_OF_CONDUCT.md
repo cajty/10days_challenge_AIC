@@ -1,0 +1,1 @@
+Be respectful, helpful, inclusive. Use only permitted assets (your own, CC0/public domain). No hateful or adult content. If unsure, ask a facilitator. We moderate for safety and privacy. 

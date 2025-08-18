@@ -1,0 +1,19 @@
+name: Help Request
+description: Get help fast
+title: "[Help] Short issue"
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Steps you tried + screenshot or error.
+  - type: input
+    id: day
+    attributes:
+      label: Day #
+      placeholder: "e.g., 05"
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Tool/site, browser, OS. 
