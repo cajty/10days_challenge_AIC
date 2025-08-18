@@ -1,5 +1,5 @@
-# 10-Day AI Build Sprint
-**Tagline:** Learn by building, one hour a day.
+# 10 Days Challenge AI Crafters
+**Tagline:** Learn by building
 
 ## How it works
 - Each day = **60-min Essential Path** (+ optional 30–60-min Deep Dive).
