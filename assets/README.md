@@ -1,1 +1,0 @@
-Place only CC0/public-domain starter assets or links here. Include source & license notes. 
