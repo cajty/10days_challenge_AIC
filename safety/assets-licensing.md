@@ -1,1 +1,0 @@
-Use your own or CC0/public domain assets. Keep a note with each asset: source URL, license, and any consent docs (if applicable). Avoid scraping private sources. 
