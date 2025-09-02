@@ -10,16 +10,16 @@
 
 | Day | Topic | Notebook |
 | --- | --- | --- |
-| 01 | Prompt Basics | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/01/starter.ipynb) |
+| 01 | Prompt Engineering | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/01/starter.ipynb) |
 | 02 | Text → Image (Low-Code) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/02/starter.ipynb) |
 | 03 | Make a Music Loop (Low-Code) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/03/starter.ipynb) |
 | 04 | Virtual Try-On (Low-Code) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/04/starter.ipynb) |
 | 05 | RAG Basics | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/05/starter.ipynb) |
 | 06 | RAG Advanced | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/06/starter.ipynb) |
 | 07 | Vibe Coding | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/07/starter.ipynb) |
-| 08 | Fine-Tuning Mini Model | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/08/starter.ipynb) |
-| 09 | (à voir) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/09/starter.ipynb) |
-| 10 | Ship Your Demo | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/10/starter.ipynb) | 
+| 08 | Fine-Tuning of a small model | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/08/starter.ipynb) |
+| 09 | AI Agents | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/09/starter.ipynb) |
+| 10 | MCP Servers | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/10/starter.ipynb) | 
 
 
 ## Quick rules
