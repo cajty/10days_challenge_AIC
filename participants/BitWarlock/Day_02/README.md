@@ -1,6 +1,16 @@
 # Day 02 - Image Generation
 
-## Use case - Marketing / Social
+## Checklist
+
+- Use case: Marketing / Social
+- AI used for generating images: stablediffusionweb
+- Style used: Design
+
+## Key findings about image generation using AI
+
+- Enhancing prompts with more details about style, colors, and context generally yields better results.
+- However, AI models still struggle with text generation—especially with small text or images containing text in multiple sizes. I tested this using ChatGPT, Grok, Stable Diffusion Web, and Gemini.
+- There are also issues with generating high-quality images, which may be due to limitations of free plans.
 
 ### First Prompt Iteration
 
@@ -30,3 +40,35 @@
 
 ![Second Prompt](second_prompt.jpg "Second Prompt")
 
+### Third Prompt Iteration
+
+> **Situation**
+Create a 12:5 ratio digital poster for OmniWatch, an AI-powered industrial predictive maintenance and incident management system. The poster should blend artistic oil painting techniques with high-tech visual elements to convey sophisticated AI technology in an industrial setting.
+
+> **Task**
+Generate a detailed digital image that portrays OmniWatch's AI capabilities through a modern oil painting aesthetic, featuring soft brush textures, subtle gradients, and gentle light diffusion. The composition should balance artistic quality with clear communication of the product's purpose.
+
+> **Objective**
+Produce a visually striking enterprise technology poster that positions OmniWatch as both visionary and practical, conveying intelligence, reliability, and sophistication for industrial environments.
+
+> **Knowledge**
+- The poster must maintain a 12:5 aspect ratio
+- Visual elements must include:
+  - A large, glowing control dashboard in a quiet industrial setting
+  - Real-time anomaly alerts, incident priorities, and AI recommendations displayed on screen
+  - Translucent AI agents represented as minimalist geometric forms near the screen
+  - A softly painted factory interior with blurred machinery in muted tones
+  - Calm, focused lighting emanating primarily from the screen's glow
+  - "OmniWatch" in clean, bold, white lettering at top center (subtle, not dominant)
+  - No tagline or small print
+- Artistic style should feature oil painting techniques with soft brush textures, subtle gradients, and gentle light diffusion
+- Overall mood should be serene, intelligent, and professional
+- The final image should balance classical art textures with futuristic technology elements
+
+> Your life depends on capturing the precise balance between artistic oil painting techniques and high-tech visualization, ensuring the industrial AI system appears both sophisticated and accessible to enterprise clients.
+
+#### ChatGPT Result
+![Thind Prompt](third_prompt.jpg "Third Prompt")
+
+#### Grok Result
+![Fourth Prompt](fourth_prompt.jpg "Fourth Prompt")
