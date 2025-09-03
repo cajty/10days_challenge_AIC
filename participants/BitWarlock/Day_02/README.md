@@ -6,7 +6,7 @@
 
 > Digital event poster for OmniWatch – an intelligent multi-agent AI system for predictive maintenance and incident management in industrial environments. Style: minimalist tech futurism with a dark navy and electric teal color palette. Central glowing holographic dashboard showing real-time anomalies, AI agent activity, and actionable alerts. Floating abstract AI agents as soft-glow geometric forms. Crisp white typography: 'OmniWatch' in bold sans-serif at the top, tagline 'Predict. Explain. Act.' at the bottom. Subtle grid and data particles in background. Balanced, clean, highly legible. 1080×1350, ultra-detailed digital render, professional industrial tech vibe.
 
-![First Prompt](first_prompt.png "First Prompt")
+![First Prompt](first_prompt.jpg "First Prompt")
 
 ### Second Prompt Iteration
 
@@ -28,5 +28,5 @@
 
 > Output: 12:5 aspect ratio, photorealistic digital render, 8K detail, professional presentation style, suitable for enterprise tech branding.
 
-![Second Prompt](second_prompt.png "Second Prompt")
+![Second Prompt](second_prompt.jpg "Second Prompt")
 
