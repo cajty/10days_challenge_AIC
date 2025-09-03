@@ -68,7 +68,7 @@ Produce a visually striking enterprise technology poster that positions OmniWatc
 > Your life depends on capturing the precise balance between artistic oil painting techniques and high-tech visualization, ensuring the industrial AI system appears both sophisticated and accessible to enterprise clients.
 
 #### ChatGPT Result
-![Thind Prompt](third_prompt.jpg "Third Prompt")
+![Thind Prompt](third_prompt.png "Third Prompt")
 
 #### Grok Result
 ![Fourth Prompt](fourth_prompt.jpg "Fourth Prompt")
