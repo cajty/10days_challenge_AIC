@@ -44,4 +44,3 @@ Virtual Try-On AI can be used for:
 
 
 **Have fun experimenting!**  
-The AI Crafters Team 🚀
