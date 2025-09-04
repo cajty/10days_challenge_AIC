@@ -29,7 +29,8 @@ AI music generation can be used for:
 ## 🛠️ Recommended Tools
 
 - **Suno AI** – AI-generated music compositions.  
-- **Soundraw.io** – Quick AI-powered song generation.  
+- **Soundraw.io** – Quick AI-powered song generation.
+-  **Boomy** – Create songs in seconds for free.   
 
 ---
 
