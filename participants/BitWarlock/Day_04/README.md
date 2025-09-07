@@ -3,11 +3,11 @@
 ## Making The Outfit
 
 I wanted to create some fun and unique outfits, so I used Gemini to generate them.  
-The prompt I gave was simple:
+The prompt I gave was very simple:
 
 > A single unique outfit on a white background, with this style: Harry Potter
 
-This is the outfit Gemini gave me:
+This is one of the outfits Gemini gave me:
 
 ![Outfit](magic_outfit.png)
 
@@ -27,6 +27,8 @@ Here are the ones I tried:
 Out of all of these, I felt that this one worked the best:  
 https://fitroom.app  
 
+### Example 1: Harry Potter Style
+
 It gave me this result when I tried the outfit on a portrait:
 
 ![Result](result.png)
@@ -34,6 +36,21 @@ It gave me this result when I tried the outfit on a portrait:
 The portrait I used was one I found online:
 
 ![Portrait](portrait.jpg)
+
+This helped me see how the generated outfit would look in a more realistic setting.  
+
+### Example 2: Naruto Style
+
+I also tried another style with the theme of Naruto.  
+Here is the generated outfit:
+
+![Outfit](naruto_outfit.png)
+
+And here is the result after using the virtual try-on:
+
+![Result](naruto_result.png)
+
+This test was fun because the outfit had a very strong anime look, and the tool managed to transfer it onto the portrait quite well.  
 
 ## Challenges
 
