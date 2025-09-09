@@ -1,5 +1,5 @@
 ## Colab
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/10-day-ai-build-sprint/blob/main/days/06/advanced_rag.ipynb) 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AI-Crafters-Community/10days_challenge_AIC/blob/main/days/05/advanced_rag.ipynb) 
 ## Advanced RAG Notebook
 
 This README explains how to run and adapt `advanced_rag.ipynb`, which demonstrates a Retrieval-Augmented Generation (RAG) pipeline using LangChain, Chroma vector store, Hugging Face Inference API embeddings, a cross-encoder re-ranker, and an open-source LLM.
