@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Chat Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chat-container {
+            height: calc(100vh - 200px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto max-w-4xl p-4">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+            <h1 class="text-3xl font-bold text-gray-800 text-center">PDF Chat Assistant</h1>
+            <p class="text-gray-600 text-center mt-2">Upload a PDF and ask questions about it</p>
+            <div class="flex justify-center mt-4 space-x-4">
+                <span id="status" class="px-4 py-2 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                    Connecting...
+                </span>
+                <span id="kbStatus" class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hidden">
+                    No PDF loaded
+                </span>
+            </div>
+        </div>
+
+        <!-- PDF Upload Section -->
+        <div id="uploadSection" class="bg-white rounded-lg shadow-md p-6 mb-4">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Upload PDF Document</h2>
+            <div class="flex items-center space-x-4">
+                <div class="flex-1">
+                    <label for="pdfFile" class="block text-sm font-medium text-gray-700 mb-2">
+                        Choose PDF file to upload
+                    </label>
+                    <input 
+                        type="file" 
+                        id="pdfFile" 
+                        accept=".pdf"
+                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    >
+                </div>
+                <button 
+                    id="uploadButton" 
+                    class="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                    disabled
+                >
+                    Upload
+                </button>
+                <button 
+                    id="clearButton" 
+                    class="bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors hidden"
+                    disabled
+                >
+                    Clear KB
+                </button>
+            </div>
+            <div id="uploadProgress" class="mt-4 hidden">
+                <div class="bg-blue-100 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <p class="text-sm text-gray-600 mt-2">Processing PDF...</p>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="bg-white rounded-lg shadow-md chat-container flex flex-col">
+            <!-- Messages Area -->
+            <div id="messages" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <div class="text-center text-gray-500">
+                    <p>Welcome! Ask me anything about your PDF document.</p>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t p-4">
+                <div class="flex space-x-4">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Ask a question about your PDF..." 
+                        class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        disabled
+                    >
+                    <button 
+                        id="sendButton" 
+                        class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                        disabled
+                    >
+                        Send
+                    </button>
+                </div>
+                <div class="text-xs text-gray-500 mt-2 flex justify-between">
+                    <span>Press Enter to send</span>
+                    <span id="contextInfo" class="hidden">Retrieving 3 context chunks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        const messagesContainer = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const statusElement = document.getElementById('status');
+        const contextInfo = document.getElementById('contextInfo');
+        const kbStatusElement = document.getElementById('kbStatus');
+        const pdfFileInput = document.getElementById('pdfFile');
+        const uploadButton = document.getElementById('uploadButton');
+        const clearButton = document.getElementById('clearButton');
+        const uploadProgress = document.getElementById('uploadProgress');
+
+        // Check API health on load
+        async function checkAPIHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                if (response.ok) {
+                    const data = await response.json();
+                    statusElement.textContent = 'Ready';
+                    statusElement.className = 'px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800';
+                    uploadButton.disabled = false;
+                    contextInfo.classList.remove('hidden');
+                    kbStatusElement.classList.remove('hidden');
+                    
+                    // Get knowledge base info
+                    await updateKnowledgeBaseStatus();
+                } else {
+                    throw new Error('API not responding');
+                }
+            } catch (error) {
+                statusElement.textContent = 'API Offline';
+                statusElement.className = 'px-4 py-2 rounded-full text-sm font-medium bg-red-100 text-red-800';
+                addMessage('system', 'Unable to connect to the API. Please make sure the server is running on http://localhost:8000');
+            }
+        }
+
+        // Update knowledge base status
+        async function updateKnowledgeBaseStatus() {
+            try {
+                const kbResponse = await fetch(`${API_BASE}/knowledge-base/info`);
+                if (kbResponse.ok) {
+                    const kbData = await kbResponse.json();
+                    if (kbData.info && kbData.info.count > 0) {
+                        kbStatusElement.textContent = `${kbData.info.count} chunks loaded`;
+                        kbStatusElement.className = 'px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800';
+                        messageInput.disabled = false;
+                        sendButton.disabled = false;
+                        clearButton.classList.remove('hidden');
+                        clearButton.disabled = false;
+                    } else {
+                        kbStatusElement.textContent = 'No PDF loaded';
+                        kbStatusElement.className = 'px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800';
+                        messageInput.disabled = true;
+                        sendButton.disabled = true;
+                        clearButton.classList.add('hidden');
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating KB status:', error);
+            }
+        }
+
+        // Upload PDF
+        async function uploadPDF() {
+            const file = pdfFileInput.files[0];
+            if (!file) {
+                addMessage('system', 'Please select a PDF file first.');
+                return;
+            }
+
+            if (file.type !== 'application/pdf') {
+                addMessage('system', 'Please select a valid PDF file.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            uploadButton.disabled = true;
+            uploadButton.textContent = 'Uploading...';
+            uploadProgress.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`${API_BASE}/upload-pdf`, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Upload failed');
+                }
+
+                const data = await response.json();
+                addMessage('system', `Successfully uploaded and processed ${data.filename} (${data.pages_processed} pages)`);
+                
+                // Clear file input
+                pdfFileInput.value = '';
+                
+                // Update knowledge base status
+                await updateKnowledgeBaseStatus();
+                
+                // Clear existing messages except system messages
+                const messages = messagesContainer.children;
+                const systemMessages = Array.from(messages).filter(msg => 
+                    msg.querySelector('.bg-red-100') || msg.textContent.includes('Successfully uploaded')
+                );
+                messagesContainer.innerHTML = '';
+                systemMessages.forEach(msg => messagesContainer.appendChild(msg));
+                
+            } catch (error) {
+                addMessage('system', `Upload failed: ${error.message}`);
+            } finally {
+                uploadButton.disabled = false;
+                uploadButton.textContent = 'Upload';
+                uploadProgress.classList.add('hidden');
+            }
+        }
+
+        // Clear knowledge base
+        async function clearKnowledgeBase() {
+            if (!confirm('Are you sure you want to clear the knowledge base? This will remove all PDF data.')) {
+                return;
+            }
+
+            clearButton.disabled = true;
+            clearButton.textContent = 'Clearing...';
+
+            try {
+                const response = await fetch(`${API_BASE}/knowledge-base/clear`, {
+                    method: 'DELETE',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to clear knowledge base');
+                }
+
+                addMessage('system', 'Knowledge base cleared successfully. Please upload a new PDF.');
+                
+                // Clear chat messages
+                messagesContainer.innerHTML = '<div class="text-center text-gray-500"><p>Knowledge base cleared. Upload a PDF to start chatting.</p></div>';
+                
+                // Update status
+                await updateKnowledgeBaseStatus();
+                
+            } catch (error) {
+                addMessage('system', `Failed to clear knowledge base: ${error.message}`);
+            } finally {
+                clearButton.disabled = false;
+                clearButton.textContent = 'Clear KB';
+            }
+        }
+
+        // Add message to chat
+        function addMessage(type, content, isLoading = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${type === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = `max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                type === 'user' 
+                    ? 'bg-blue-500 text-white' 
+                    : type === 'system'
+                    ? 'bg-red-100 text-red-800 border border-red-200'
+                    : 'bg-gray-200 text-gray-800'
+            }`;
+            
+            if (isLoading) {
+                bubble.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
+                        <span>Thinking...</span>
+                    </div>
+                `;
+                bubble.id = 'loading-message';
+            } else {
+                bubble.textContent = content;
+            }
+            
+            messageDiv.appendChild(bubble);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            return messageDiv;
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage('user', message);
+            messageInput.value = '';
+            
+            // Show loading
+            const loadingElement = addMessage('assistant', '', true);
+            sendButton.disabled = true;
+            messageInput.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: message,
+                        k: 3
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Remove loading message
+                loadingElement.remove();
+                
+                // Add assistant response
+                addMessage('assistant', data.response);
+                
+                // Update context info
+                contextInfo.textContent = `Used ${data.context_used} context chunks`;
+                
+            } catch (error) {
+                // Remove loading message
+                loadingElement.remove();
+                
+                // Add error message
+                addMessage('system', `Error: ${error.message}. Please check if the API server is running.`);
+            } finally {
+                sendButton.disabled = false;
+                messageInput.disabled = false;
+                messageInput.focus();
+            }
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        uploadButton.addEventListener('click', uploadPDF);
+        clearButton.addEventListener('click', clearKnowledgeBase);
+        
+        // Enable upload button when file is selected
+        pdfFileInput.addEventListener('change', (e) => {
+            uploadButton.disabled = !e.target.files[0] || statusElement.textContent === 'API Offline';
+        });
+
+        // Initialize
+        checkAPIHealth();
+    </script>
+</body>
+</html>
