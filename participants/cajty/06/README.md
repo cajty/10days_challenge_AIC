@@ -54,6 +54,29 @@ Access the chat UI at: `http://localhost:8000/ui`
 
 Interactive API docs available at: `http://localhost:8000/docs`
 
+## Screenshots
+
+### Initial Upload Interface
+![Initial Upload Interface](S1.png "Clean upload interface showing PDF file selection and empty knowledge base state")
+
+The initial interface presents a clean, user-friendly upload area where users can:
+- Select PDF files using the "Choose File" button
+- Upload documents with the green "Upload" button
+- See the current knowledge base status (empty state shown)
+- Access the chat input field (disabled until document is uploaded)
+
+### Document Processing & Chat
+![Document Processing & Chat](S2.png "Successfully processed PDF document with AI response showing document analysis")
+
+After uploading a PDF document, the interface shows:
+- **Success confirmation**: "Successfully uploaded and processed 10 day challenge with AI Crafters.pdf (18 pages)"
+- **Clear KB button**: Red button to clear the knowledge base when needed
+- **AI Response**: Intelligent analysis of the document content, identifying it as a community event by AI Crafters in 2025
+- **Active chat interface**: Users can now ask questions about the uploaded PDF
+- **Context tracking**: Shows "Used 3 context chunks" indicating the RAG system's retrieval process
+
+The system demonstrates its ability to understand document content and provide meaningful responses about the uploaded materials.
+
 ## Project Structure
 
 - `main.py` - FastAPI application and API routes
@@ -72,7 +95,3 @@ Interactive API docs available at: `http://localhost:8000/docs`
 - Google Generative AI - Language model
 - PyPDF - PDF document parsing
 - Uvicorn - ASGI server
-
-
-![First Prompt](S2.png "First Prompt")
-![First Prompt](S1.png "First Prompt")
